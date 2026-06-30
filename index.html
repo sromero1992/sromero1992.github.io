@@ -7,15 +7,15 @@
   <style>
     /* ── Design tokens ─────────────────────────────── */
     :root {
-      --navy:   #0d1b2a;
-      --blue:   #1e6fa8;
-      --sky:    #3a9fd8;
+      --navy:   #0d2b1a;
+      --blue:   #1e7a3e;
+      --sky:    #2fa855;
       --accent: #f0a500;
-      --light:  #f5f8fc;
-      --text:   #1a1a2e;
-      --muted:  #5a6a7a;
+      --light:  #f4faf6;
+      --text:   #1a2e1e;
+      --muted:  #5a6e5f;
       --white:  #ffffff;
-      --border: #dde3ea;
+      --border: #d4e8da;
       --radius: 10px;
       --shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
@@ -52,7 +52,7 @@
 
     /* ── Hero ───────────────────────────────────────── */
     header {
-      background: linear-gradient(135deg, var(--navy) 0%, #1a3a5c 100%);
+      background: linear-gradient(135deg, var(--navy) 0%, #1a4a2a 100%);
       color: var(--white);
       padding: 5rem 2rem 4rem;
       text-align: center;
@@ -220,6 +220,50 @@
     }
     .cv-cta:hover { background: var(--blue); text-decoration: none; }
 
+    /* ── Certifications ─────────────────────────────── */
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+    .cert-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      box-shadow: var(--shadow);
+      display: flex; gap: 0.8rem; align-items: flex-start;
+    }
+    .cert-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .cert-body {}
+    .cert-name { font-family: sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 0.15rem; }
+    .cert-issuer { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── Skills ─────────────────────────────────────── */
+    .skill-group { margin-bottom: 1.2rem; }
+    .skill-group-title { font-family: sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.6rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-tag {
+      background: var(--light);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 20px;
+      padding: 0.3rem 0.8rem;
+      font-family: sans-serif; font-size: 0.82rem;
+    }
+    .skill-tag.expert { background: #e6f4ea; border-color: var(--sky); color: var(--blue); }
+    .skill-tag.proficient { background: #f0faf0; border-color: #7bc87b; color: #2e7d32; }
+
+    /* ── Peer Review ─────────────────────────────────── */
+    .review-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      margin-bottom: 0.8rem;
+      box-shadow: var(--shadow);
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .review-journal { font-family: sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 0.2rem; }
+    .review-paper { font-size: 0.85rem; color: var(--muted); font-style: italic; margin-bottom: 0.15rem; }
+    .review-rounds { font-size: 0.8rem; color: var(--blue); }
+
     /* ── Footer ─────────────────────────────────────── */
     footer {
       background: var(--navy);
@@ -241,6 +285,9 @@
     <li><a href="#research">Research</a></li>
     <li><a href="#publications">Publications</a></li>
     <li><a href="#teaching">Teaching</a></li>
+    <li><a href="#presentations">Talks</a></li>
+    <li><a href="#service">Service</a></li>
+    <li><a href="#skills">Skills</a></li>
     <li><a href="#cv">CV</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -248,7 +295,9 @@
 
 <!-- ── Hero ── -->
 <header>
-  <div class="avatar">SR</div>
+  <div class="avatar" style="background:none; padding:0; overflow:hidden;">
+    <img src="selim_romero_headshot.jpg" alt="Selim Romero" style="width:100%; height:100%; object-fit:cover; border-radius:50%;" />
+  </div>
   <h1>Selim Sabag Romero Gonzalez</h1>
   <p class="subtitle">Postdoctoral Research Associate</p>
   <p class="affiliation">Single-Cell Data Core (SCDC) · Texas A&M University</p>
@@ -545,12 +594,33 @@
 <section id="teaching">
   <div class="container">
     <h2 class="section-title">Teaching</h2>
-    <p style="margin-bottom:1.6rem;">
-      My teaching philosophy centers on transforming complex, emerging concepts into accessible, mathematically
-      grounded building blocks. I foster a dynamic environment linking <strong>abstract theory to computational practice</strong>,
-      with a strong commitment to mentoring diverse students — particularly Hispanic and first-generation scholars —
-      aligning with the missions of institutions like UTEP and TAMU.
+    <p style="margin-bottom:1rem;">
+      My teaching philosophy centers on transforming complex, emerging concepts — including Quantum Computing and AI —
+      into accessible, mathematically grounded building blocks that equip students for both foundational research and
+      high-impact applications in Data Science and Computational Science. I aim to foster a dynamic learning environment
+      that links <strong>abstract theory to computational practice</strong>, preparing students to be effective researchers
+      and ethical leaders in a globally competitive workforce.
     </p>
+
+    <h3 style="font-family:sans-serif; font-size:0.95rem; color:var(--navy); margin:1.2rem 0 0.8rem;">Core Principles</h3>
+    <div class="interest-grid" style="margin-bottom:1.6rem;">
+      <div class="interest-card">
+        <h3>📐 Foundational Mastery</h3>
+        <p>Students must master the mathematical and computational principles underlying modern data science — linear algebra, numerical analysis, complexity theory, and algorithms. This rigorous foundation is essential for success in graduate research and industry.</p>
+      </div>
+      <div class="interest-card">
+        <h3>🤖 AI &amp; Quantum Focus</h3>
+        <p>Courses explicitly link theoretical concepts such as optimization and statistical learning to cutting-edge applications in Machine Learning, Quantum Computing, and high-dimensional data analysis, motivating students with real-world impact.</p>
+      </div>
+      <div class="interest-card">
+        <h3>💻 Hands-On, Project-Based Learning</h3>
+        <p>Active learning through coding projects using Python, C++/Fortran, HPC environments (MPI/OpenMP), and Qiskit. Students translate theory into tangible skills by designing algorithms, parallelizing code, and simulating physical and biological systems.</p>
+      </div>
+      <div class="interest-card">
+        <h3>🤝 Diverse Mentorship</h3>
+        <p>As a former Computational Science student and a member of the Hispanic community, I am committed to mentoring students from diverse backgrounds — particularly Hispanic and first-generation scholars — supporting their development into impactful scientists and engineers.</p>
+      </div>
+    </div>
 
     <h3 style="font-family:sans-serif; font-size:0.95rem; color:var(--navy); margin-bottom:1rem;">Prepared Course Offerings</h3>
     <div class="teaching-grid">
@@ -611,6 +681,264 @@
         <div class="tl-sub">Universidad Autónoma de Ciudad Juárez</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ── Presentations ── -->
+<section id="presentations">
+  <div class="container">
+    <h2 class="section-title">Presentations &amp; Talks</h2>
+
+    <div class="pub-section-head">Conference Talks</div>
+    <ul class="pub-list">
+      <li class="pub-item">
+        <span class="pub-year">2025</span>
+        <div class="pub-body">
+          <div class="pub-title">QUBO Feature Selection on scRNA-seq — Drug Discovery</div>
+          <div class="pub-authors">TAMU Postdoctoral Symposium 2025 · TAMU HPRC Symposium 2025 · CPRIT TAMU Cancer Symposium 2025</div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <span class="pub-year">2024</span>
+        <div class="pub-body">
+          <div class="pub-title">QUBO Feature Selection on scRNA-seq — Cell Differentiation</div>
+          <div class="pub-authors">ICIBM 2024 · TAMU Postdoctoral Symposium 2024</div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <span class="pub-year">2024</span>
+        <div class="pub-body">
+          <div class="pub-title">Exploring Single-Cell to Cell Variability</div>
+          <div class="pub-authors">CPRIT TAMU Cancer Symposium 2024</div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <span class="pub-year">2022</span>
+        <div class="pub-body">
+          <div class="pub-title">SCAN Family of Functionals in the FLOSIC Code</div>
+          <div class="pub-authors">ACS Fall Meeting 2022 (Talk)</div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <span class="pub-year">2022</span>
+        <div class="pub-body">
+          <div class="pub-title">Selectively Orbital-Scaled Self-Interaction-Correction for Efficient FLOSIC Calculations toward Realistic Systems</div>
+          <div class="pub-authors">FLOSIC Meeting 2022 (Talk)</div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <span class="pub-year">2021</span>
+        <div class="pub-body">
+          <div class="pub-title">Local Scaled Self-Interaction-Correction Method Using Fermi-Löwdin Orbitals and a Simple Scaling Factor</div>
+          <div class="pub-authors">APS March Meeting 2021 (Talk)</div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <span class="pub-year">2017</span>
+        <div class="pub-body">
+          <div class="pub-title">Geant4 Simulator for Gamma Collimator — Requirements of a Measuring Device</div>
+          <div class="pub-authors">APS Fall Texas Section 2017 (Talk)</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="pub-section-head">Posters</div>
+    <ul class="pub-list">
+      <li class="pub-item">
+        <span class="pub-year">2021</span>
+        <div class="pub-body">
+          <div class="pub-title">Performance of Local-Self Interaction Correction Using the Density Ratio as a Scaling Factor</div>
+          <div class="pub-authors">UTEP GradEXPO 2021</div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <span class="pub-year">2020</span>
+        <div class="pub-body">
+          <div class="pub-title">Assessment of Local Scaling Self-Interaction Correction with a Simpler Scaling Factor</div>
+          <div class="pub-authors">FLOSIC Meeting 2020</div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <span class="pub-year">2019</span>
+        <div class="pub-body">
+          <div class="pub-title">Study of Local Scaling Self-Interaction Correction with a Simpler Scaling Factor</div>
+          <div class="pub-authors">FLOSIC Meeting 2019</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── Service & Peer Review ── -->
+<section id="service">
+  <div class="container">
+    <h2 class="section-title">Academic Service &amp; Peer Review</h2>
+    <p style="margin-bottom:1.4rem;">
+      Certified <strong>IOP Trusted Reviewer</strong> (February 2025). Active reviewer for journals spanning quantum computing,
+      machine learning, and physics, with 7 reviews completed across 3 manuscripts.
+    </p>
+
+    <div class="review-item">
+      <div>
+        <div class="review-journal">Quantum Science and Technology</div>
+        <div class="review-paper">Molecular Docking via Weighted Subgraph Isomorphism on Quantum Annealers</div>
+        <div class="review-rounds">3 rounds · Jun – Sep 2025</div>
+      </div>
+    </div>
+    <div class="review-item">
+      <div>
+        <div class="review-journal">New Journal of Physics</div>
+        <div class="review-paper">Thermodynamic Significance of QUBO Encoding on Quantum Annealers</div>
+        <div class="review-rounds">2 rounds · Mar – Apr 2026</div>
+      </div>
+    </div>
+    <div class="review-item">
+      <div>
+        <div class="review-journal">Machine Learning: Science and Technology</div>
+        <div class="review-paper">Towards Arbitrary QUBO Optimization: Analysis of Classical and Quantum-Activated Feedforward Neural Networks</div>
+        <div class="review-rounds">2 rounds · Dec 2024 – Mar 2025</div>
+      </div>
+    </div>
+
+    <div class="pub-section-head" style="margin-top:1.6rem;">Certifications &amp; Training</div>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-icon">🏅</div>
+        <div class="cert-body">
+          <div class="cert-name">Qiskit Global Summer School 2025 — Quantum Excellence</div>
+          <div class="cert-issuer">IBM · Aug 2025</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🔬</div>
+        <div class="cert-body">
+          <div class="cert-name">IOP Trusted Reviewer Status</div>
+          <div class="cert-issuer">IOP Publishing · Feb 2025</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">📝</div>
+        <div class="cert-body">
+          <div class="cert-name">Peer Review Excellence Training</div>
+          <div class="cert-issuer">IOP Publishing · Dec 2024</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🏅</div>
+        <div class="cert-body">
+          <div class="cert-name">Qiskit Global Summer School 2024 — Quantum Excellence</div>
+          <div class="cert-issuer">IBM · Aug 2024</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">⚡</div>
+        <div class="cert-body">
+          <div class="cert-name">Fundamentals of Accelerated Computing with CUDA C/C++</div>
+          <div class="cert-issuer">NVIDIA · Sep 2024</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🏅</div>
+        <div class="cert-body">
+          <div class="cert-name">Qiskit Global Summer School 2023 — Theory to Implementation</div>
+          <div class="cert-issuer">IBM · Jun 2023</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🖥</div>
+        <div class="cert-body">
+          <div class="cert-name">NERSC Modern Fortran Basics (FUN Training)</div>
+          <div class="cert-issuer">NERSC · Jul 2023</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🚀</div>
+        <div class="cert-body">
+          <div class="cert-name">GPU Programming Bootcamp — N-Ways to GPU for NERSC</div>
+          <div class="cert-issuer">NERSC · Apr 2023</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Skills ── -->
+<section id="skills">
+  <div class="container">
+    <h2 class="section-title">Technical Skills</h2>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Quantum Computing</div>
+      <div class="skill-tags">
+        <span class="skill-tag expert">Qiskit</span>
+        <span class="skill-tag expert">Quantum Annealing (D-Wave)</span>
+        <span class="skill-tag expert">QUBO Formulation</span>
+        <span class="skill-tag proficient">VQE / QAOA</span>
+        <span class="skill-tag proficient">Quantum Machine Learning</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Programming Languages</div>
+      <div class="skill-tags">
+        <span class="skill-tag expert">Fortran90</span>
+        <span class="skill-tag expert">Python</span>
+        <span class="skill-tag expert">Bash / Linux</span>
+        <span class="skill-tag proficient">R</span>
+        <span class="skill-tag proficient">C</span>
+        <span class="skill-tag proficient">CUDA Fortran</span>
+        <span class="skill-tag proficient">Matlab / Octave</span>
+        <span class="skill-tag proficient">Mathematica</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">HPC &amp; Parallel Computing</div>
+      <div class="skill-tags">
+        <span class="skill-tag expert">MPI</span>
+        <span class="skill-tag expert">OpenMP</span>
+        <span class="skill-tag proficient">CUDA</span>
+        <span class="skill-tag proficient">NERSC</span>
+        <span class="skill-tag proficient">TAMU HPRC</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Bioinformatics &amp; Data Science</div>
+      <div class="skill-tags">
+        <span class="skill-tag expert">Scanpy</span>
+        <span class="skill-tag expert">Seurat</span>
+        <span class="skill-tag expert">Signac</span>
+        <span class="skill-tag proficient">scRNA-seq Analysis</span>
+        <span class="skill-tag proficient">Machine Learning (scikit-learn)</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Density Functional Theory</div>
+      <div class="skill-tags">
+        <span class="skill-tag expert">FLOSIC</span>
+        <span class="skill-tag expert">NRLMOL</span>
+        <span class="skill-tag proficient">PySCF</span>
+        <span class="skill-tag proficient">PSI4</span>
+        <span class="skill-tag proficient">Gaussian</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Languages</div>
+      <div class="skill-tags">
+        <span class="skill-tag expert">Spanish (Native)</span>
+        <span class="skill-tag expert">English (Professional)</span>
+      </div>
+    </div>
+
+    <p style="margin-top:1rem; font-size:0.82rem; color:var(--muted);">
+      <span style="display:inline-block; background:#e8f4fd; border:1px solid var(--sky); color:var(--blue); border-radius:20px; padding:0.2rem 0.7rem; font-family:sans-serif; font-size:0.78rem;">Blue</span>
+      = Expert &nbsp;
+      <span style="display:inline-block; background:#f0faf0; border:1px solid #7bc87b; color:#2e7d32; border-radius:20px; padding:0.2rem 0.7rem; font-family:sans-serif; font-size:0.78rem;">Green</span>
+      = Proficient
+    </p>
   </div>
 </section>
 
