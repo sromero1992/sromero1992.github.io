@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selim Romero | Quantum Computing & Computational Science</title>
+  <style>
+    /* ── Design tokens ─────────────────────────────── */
+    :root {
+      --navy:   #0d1b2a;
+      --blue:   #1e6fa8;
+      --sky:    #3a9fd8;
+      --accent: #f0a500;
+      --light:  #f5f8fc;
+      --text:   #1a1a2e;
+      --muted:  #5a6a7a;
+      --white:  #ffffff;
+      --border: #dde3ea;
+      --radius: 10px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    /* ── Reset ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Georgia', serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.7;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+      height: 56px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .nav-brand { color: var(--white); font-family: sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.5px; }
+    .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+    .nav-links a { color: #b0bec5; font-family: sans-serif; font-size: 0.88rem; letter-spacing: 0.5px; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+    /* ── Hero ───────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3a5c 100%);
+      color: var(--white);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .avatar {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      margin: 0 auto 1.5rem;
+      background: linear-gradient(135deg, var(--sky), var(--blue));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; color: white;
+      font-family: sans-serif; font-weight: 700;
+    }
+    header h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 0.4rem; }
+    header .subtitle {
+      font-size: 1.1rem; color: #90caf9; font-family: sans-serif;
+      margin-bottom: 0.3rem;
+    }
+    header .affiliation {
+      font-size: 0.95rem; color: #b0bec5; font-family: sans-serif;
+      margin-bottom: 1.8rem;
+    }
+    .badge-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; margin-bottom: 2rem; }
+    .badge {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #e0f0ff;
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
+      font-family: sans-serif; font-size: 0.82rem;
+    }
+    .hero-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
+    .hero-links a {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--white);
+      padding: 0.45rem 1.1rem;
+      border-radius: 6px;
+      font-family: sans-serif; font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .hero-links a:hover { background: rgba(255,255,255,0.22); text-decoration: none; }
+
+    /* ── Sections ───────────────────────────────────── */
+    section { padding: 4rem 0; }
+    section:nth-child(even) { background: var(--light); }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; }
+    .section-title {
+      font-size: 1.55rem;
+      color: var(--navy);
+      margin-bottom: 1.6rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 3px solid var(--accent);
+      font-family: sans-serif;
+      font-weight: 700;
+    }
+
+    /* ── Metrics bar ────────────────────────────────── */
+    .metrics { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+    .metric-card {
+      flex: 1; min-width: 130px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .metric-num { font-size: 2rem; font-weight: 700; color: var(--blue); font-family: sans-serif; }
+    .metric-lbl { font-size: 0.8rem; color: var(--muted); font-family: sans-serif; margin-top: 0.2rem; }
+
+    /* ── Research interests cards ───────────────────── */
+    .interest-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+    .interest-card {
+      background: var(--white);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      box-shadow: var(--shadow);
+    }
+    .interest-card h3 { font-size: 0.95rem; color: var(--navy); font-family: sans-serif; margin-bottom: 0.4rem; }
+    .interest-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── Publications ───────────────────────────────── */
+    .pub-list { list-style: none; }
+    .pub-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 0.9rem;
+      box-shadow: var(--shadow);
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .pub-year {
+      flex-shrink: 0;
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 6px;
+      padding: 0.25rem 0.55rem;
+      font-family: sans-serif; font-size: 0.78rem; font-weight: 700;
+      margin-top: 0.1rem;
+    }
+    .pub-body { flex: 1; }
+    .pub-title { font-size: 0.97rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+    .pub-authors { font-size: 0.83rem; color: var(--muted); margin-bottom: 0.2rem; }
+    .pub-venue { font-size: 0.83rem; color: var(--blue); font-style: italic; }
+    .pub-doi { font-size: 0.8rem; margin-top: 0.3rem; }
+
+    .pub-section-head {
+      font-family: sans-serif; font-size: 1rem; font-weight: 700;
+      color: var(--navy); margin: 1.5rem 0 0.8rem;
+      padding-left: 0.5rem; border-left: 3px solid var(--sky);
+    }
+
+    /* ── Teaching ───────────────────────────────────── */
+    .teaching-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    @media(max-width: 600px){ .teaching-grid { grid-template-columns: 1fr; } }
+    .course-group {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow);
+    }
+    .course-group h3 { font-family: sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--navy); margin-bottom: 0.7rem; }
+    .course-group ul { list-style: none; }
+    .course-group li { font-size: 0.86rem; color: var(--muted); padding: 0.25rem 0; border-bottom: 1px solid var(--border); }
+    .course-group li:last-child { border-bottom: none; }
+
+    /* ── Timeline (Experience) ──────────────────────── */
+    .timeline { position: relative; padding-left: 1.8rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--border); border-radius: 2px; }
+    .tl-item { position: relative; margin-bottom: 1.6rem; }
+    .tl-dot { position: absolute; left: -2.15rem; top: 0.35rem; width: 14px; height: 14px; background: var(--blue); border-radius: 50%; border: 3px solid var(--white); box-shadow: 0 0 0 2px var(--blue); }
+    .tl-date { font-family: sans-serif; font-size: 0.8rem; color: var(--muted); margin-bottom: 0.2rem; }
+    .tl-title { font-size: 1rem; font-weight: 700; color: var(--navy); }
+    .tl-sub { font-size: 0.88rem; color: var(--blue); margin-bottom: 0.3rem; }
+    .tl-desc { font-size: 0.88rem; color: var(--muted); }
+
+    /* ── Contact ────────────────────────────────────── */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .contact-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .contact-card .icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+    .contact-card .lbl { font-family: sans-serif; font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.3rem; }
+    .contact-card .val { font-size: 0.9rem; color: var(--blue); word-break: break-all; }
+
+    /* ── CV CTA ─────────────────────────────────────── */
+    .cv-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.75rem 1.8rem;
+      border-radius: 8px;
+      font-family: sans-serif; font-size: 0.95rem; font-weight: 600;
+      transition: background 0.2s;
+    }
+    .cv-cta:hover { background: var(--blue); text-decoration: none; }
+
+    /* ── Footer ─────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      color: #78909c;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-family: sans-serif; font-size: 0.82rem;
+    }
+    footer a { color: #90caf9; }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <span class="nav-brand">Selim Romero</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#teaching">Teaching</a></li>
+    <li><a href="#cv">CV</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ── -->
+<header>
+  <div class="avatar">SR</div>
+  <h1>Selim Sabag Romero Gonzalez</h1>
+  <p class="subtitle">Postdoctoral Research Associate</p>
+  <p class="affiliation">Single-Cell Data Core (SCDC) · Texas A&M University</p>
+  <div class="badge-row">
+    <span class="badge">Quantum Computing</span>
+    <span class="badge">Computational Science</span>
+    <span class="badge">Machine Learning</span>
+    <span class="badge">Single-Cell Genomics</span>
+    <span class="badge">HPC</span>
+    <span class="badge">Density Functional Theory</span>
+  </div>
+  <div class="hero-links">
+    <a href="mailto:ssromerogon@tamu.edu">✉ Email</a>
+    <a href="https://orcid.org/0000-0002-2401-6272" target="_blank">🔗 ORCID</a>
+    <a href="https://www.webofscience.com/wos/author/rid/JKI-8025-2023" target="_blank">📊 Web of Science</a>
+    <a href="https://scholar.google.com" target="_blank">🎓 Google Scholar</a>
+    <a href="https://github.com" target="_blank">💻 GitHub</a>
+    <a href="https://www.linkedin.com" target="_blank">🔗 LinkedIn</a>
+  </div>
+</header>
+
+<!-- ── About ── -->
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">About</h2>
+    <p>
+      I am a Postdoctoral Research Associate at the <strong>Single-Cell Data Core (SCDC)</strong> at Texas A&M University,
+      where I bridge quantum computing, high-performance computing (HPC), and life sciences data analytics.
+      My work focuses on developing scalable <strong>hybrid quantum-classical algorithms</strong> for computationally hard,
+      data-intensive problems — with current applications in single-cell RNA sequencing (scRNA-seq) for cancer research.
+    </p>
+    <br>
+    <p>
+      I hold a Ph.D. in Computational Science from The University of Texas at El Paso (UTEP), where my dissertation
+      focused on advances in one-electron self-interaction-correction methods for density functional theory.
+      My research integrates <strong>Quantum Annealing (QA)</strong> and <strong>gate-based quantum algorithms</strong> (Qiskit)
+      to solve NP-hard optimization and classification problems, with expertise spanning quantum chemistry, bioinformatics, and HPC.
+    </p>
+
+    <br>
+    <h3 style="font-family:sans-serif; font-size:1rem; color:var(--navy); margin-bottom:1rem;">Publication Metrics</h3>
+    <div style="display:flex; flex-direction:column; gap:1rem;">
+
+      <!-- Google Scholar -->
+      <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:1rem 1.2rem; box-shadow:var(--shadow);">
+        <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.8rem;">
+          <span style="font-size:1.1rem;">🎓</span>
+          <span style="font-family:sans-serif; font-size:0.82rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px;">Google Scholar</span>
+          <a href="https://scholar.google.com/citations?user=h5utU4EAAAAJ" target="_blank" style="font-family:sans-serif; font-size:0.78rem; margin-left:auto;">View profile →</a>
+        </div>
+        <div class="metrics" style="margin-bottom:0;">
+          <div class="metric-card"><div class="metric-num">166</div><div class="metric-lbl">Total Citations</div></div>
+          <div class="metric-card"><div class="metric-num">149</div><div class="metric-lbl">Citations (since 2021)</div></div>
+          <div class="metric-card"><div class="metric-num">6</div><div class="metric-lbl">H-index</div></div>
+          <div class="metric-card"><div class="metric-num">5</div><div class="metric-lbl">i10-index</div></div>
+        </div>
+      </div>
+
+      <!-- Web of Science -->
+      <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:1rem 1.2rem; box-shadow:var(--shadow);">
+        <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.8rem;">
+          <span style="font-size:1.1rem;">📊</span>
+          <span style="font-family:sans-serif; font-size:0.82rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px;">Web of Science</span>
+          <a href="https://www.webofscience.com/wos/author/rid/JKI-8025-2023" target="_blank" style="font-family:sans-serif; font-size:0.78rem; margin-left:auto;">View profile →</a>
+        </div>
+        <div class="metrics" style="margin-bottom:0;">
+          <div class="metric-card"><div class="metric-num">10</div><div class="metric-lbl">Total Publications</div></div>
+          <div class="metric-card"><div class="metric-num">7</div><div class="metric-lbl">WoS Core Collection</div></div>
+          <div class="metric-card"><div class="metric-num">104</div><div class="metric-lbl">Times Cited</div></div>
+          <div class="metric-card"><div class="metric-num">6</div><div class="metric-lbl">H-index</div></div>
+          <div class="metric-card"><div class="metric-num">7</div><div class="metric-lbl">Peer Reviews</div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <h3 style="font-family:sans-serif; font-size:1rem; color:var(--navy); margin-bottom:1rem;">Education</h3>
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-date">2018 – 2023</div>
+        <div class="tl-title">Ph.D. — Computational Science</div>
+        <div class="tl-sub">The University of Texas at El Paso (UTEP)</div>
+        <div class="tl-desc">Dissertation: Advances in One-Electron Self-Interaction-Correction Methods for Accurate and Efficient Self-Interaction-Free Density Functional Calculations</div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-date">UTEP</div>
+        <div class="tl-title">M.S. — Computational Science</div>
+        <div class="tl-sub">The University of Texas at El Paso</div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-date">UTEP</div>
+        <div class="tl-title">M.S. — Physics</div>
+        <div class="tl-sub">The University of Texas at El Paso</div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-date"></div>
+        <div class="tl-title">B.S. — Engineering Physics</div>
+        <div class="tl-sub">Universidad Autónoma de Ciudad Juárez</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Research ── -->
+<section id="research">
+  <div class="container">
+    <h2 class="section-title">Research Interests</h2>
+    <p style="margin-bottom:1.6rem;">
+      My research philosophy centers on creating <strong>scalable hybrid quantum-classical solutions</strong> for computationally
+      hard, data-intensive problems. I leverage quantum architectures through dense data encoding to achieve
+      breakthroughs in optimization and statistical modeling that purely classical computing cannot reach.
+    </p>
+    <div class="interest-grid">
+      <div class="interest-card">
+        <h3>⚛ Quantum Annealing &amp; Optimization</h3>
+        <p>Designing QUBO models for NP-hard problems including feature selection in high-dimensional bioinformatics datasets and network analysis problems.</p>
+      </div>
+      <div class="interest-card">
+        <h3>🔬 Gate-Based Quantum Algorithms</h3>
+        <p>Developing advanced quantum circuits using Qiskit for dense data encoding, quantum kernels (QML), and variational algorithms (VQE, QAOA) for classification and optimization.</p>
+      </div>
+      <div class="interest-card">
+        <h3>🖥 HPC &amp; Quantum-Classical Integration</h3>
+        <p>Investigating algorithmic specifications for efficiently integrating quantum processors with classical supercomputers using Fortran/MPI and C++/OpenMP frameworks.</p>
+      </div>
+      <div class="interest-card">
+        <h3>🧬 Single-Cell Genomics</h3>
+        <p>Applying quantum algorithms to scRNA-seq data for cancer cell classification, feature selection, and understanding cell differentiation and drug delivery mechanisms.</p>
+      </div>
+      <div class="interest-card">
+        <h3>⚗ Density Functional Theory</h3>
+        <p>Expert in PZSIC, LSIC, and FLOSIC methods for self-interaction-corrected DFT. Five years of Fortran90 code development for high-performance molecular simulation.</p>
+      </div>
+      <div class="interest-card">
+        <h3>🔐 Quantum Security</h3>
+        <p>Exploring foundational work in quantum secure protocols using algorithms like Shor's and Grover's to secure data channels within HPC frameworks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Publications ── -->
+<section id="publications">
+  <div class="container">
+    <h2 class="section-title">Publications</h2>
+
+    <div class="pub-section-head">Journal Articles</div>
+    <ul class="pub-list">
+
+      <li class="pub-item">
+        <span class="pub-year">2026</span>
+        <div class="pub-body">
+          <div class="pub-title">FGF8 induces bone and joint regeneration at digit amputation wounds in neonate mice</div>
+          <div class="pub-authors">Yu L, Yan M, Wolff SM, Knue JD, Smith HM, Dolan CP, Muneoka K, <strong>Romero S</strong>, Cai JJ, Yun C, Boland DJ, Brunauer R, Dawson LA</div>
+          <div class="pub-venue">Bone, Vol. 202, January 2026, 117663</div>
+          <div class="pub-doi"><a href="https://doi.org/10.1016/j.bone.2025.117663" target="_blank">DOI: 10.1016/j.bone.2025.117663</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-year">2025</span>
+        <div class="pub-body">
+          <div class="pub-title">Quantum Annealing for Enhanced Feature Selection in Single-Cell RNA Sequencing Data Analysis</div>
+          <div class="pub-authors"><strong>Romero S</strong>, Gupta S, Gatlin V, Chapkin RS, Cai JJ</div>
+          <div class="pub-venue">Quantum Machine Intelligence, December 2025</div>
+          <div class="pub-doi"><a href="https://doi.org/10.1007/S42484-025-00312-1" target="_blank">DOI: 10.1007/S42484-025-00312-1</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-year">2025</span>
+        <div class="pub-body">
+          <div class="pub-title">Simplification of the Fermi–Löwdin Self-Interaction Correction Method for Efficient Self-Interaction-Free Density Functional Calculations</div>
+          <div class="pub-authors"><strong>Romero S</strong>, Yamamoto Y, Baruah T, Zope R</div>
+          <div class="pub-venue">ChemPhysChem, September 2025</div>
+          <div class="pub-doi"><a href="https://doi.org/10.1002/cphc.202500086" target="_blank">DOI: 10.1002/cphc.202500086</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-year">2025</span>
+        <div class="pub-body">
+          <div class="pub-title">Expression of Prooncogenic Nuclear Receptor 4A (NR4A)-Regulated Genes β1-Integrin and G9a Inhibited by Dual NR4A1/2 Ligands</div>
+          <div class="pub-authors">Zhang L, Gatlin V, Gupta S, Salinas ML, <strong>Romero S</strong>, Cai JJ, Chapkin RS, Safe S</div>
+          <div class="pub-venue">International Journal of Molecular Sciences, 2025, 26(8), 3909</div>
+          <div class="pub-doi"><a href="https://doi.org/10.3390/ijms26083909" target="_blank">DOI: 10.3390/ijms26083909</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-year">2025</span>
+        <div class="pub-body">
+          <div class="pub-title">Exploring cell-to-cell variability and functional insights through differentially variable gene analysis</div>
+          <div class="pub-authors">Gatlin V, Gupta S, <strong>Romero S</strong>, Chapkin RS, Cai JJ</div>
+          <div class="pub-venue">npj Systems Biology and Applications, Vol. 11, Article 29, 2025</div>
+          <div class="pub-doi"><a href="https://doi.org/10.1038/s41540-025-00507-z" target="_blank">DOI: 10.1038/s41540-025-00507-z</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-year">2023</span>
+        <div class="pub-body">
+          <div class="pub-title">Self-consistent implementation of locally scaled self-interaction-correction method</div>
+          <div class="pub-authors">Yamamoto Y, Baruah T, Chang PH, <strong>Romero S</strong>, Zope R</div>
+          <div class="pub-venue">The Journal of Chemical Physics, 158, 064114 (2023)</div>
+          <div class="pub-doi"><a href="https://doi.org/10.1063/5.0130436" target="_blank">DOI: 10.1063/5.0130436</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-year">2023</span>
+        <div class="pub-body">
+          <div class="pub-title">Spin-state gaps and self-interaction-corrected density functional approximations: Octahedral Fe(II) complexes as case study</div>
+          <div class="pub-authors"><strong>Romero S</strong>, Baruah T, Zope R</div>
+          <div class="pub-venue">The Journal of Chemical Physics, 158, 054305 (2023)</div>
+          <div class="pub-doi"><a href="https://doi.org/10.1063/5.0133999" target="_blank">DOI: 10.1063/5.0133999</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-year">2021</span>
+        <div class="pub-body">
+          <div class="pub-title">Local self-interaction correction method with a simple scaling factor</div>
+          <div class="pub-authors"><strong>Romero S</strong>, Yamamoto Y, Baruah T, Zope R</div>
+          <div class="pub-venue">Physical Chemistry Chemical Physics, 2021, 23, 2406</div>
+          <div class="pub-doi"><a href="https://doi.org/10.1039/D0CP06282K" target="_blank">DOI: 10.1039/D0CP06282K</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-year">2020</span>
+        <div class="pub-body">
+          <div class="pub-title">A Step in the Direction of Resolving the Paradox of Perdew-Zunger Self-interaction Correction. II. Gauge Consistency of the Energy Density at Three Levels of Approximation</div>
+          <div class="pub-authors">Bhattarai P, Wagle K, Shahi C, Yamamoto Y, <strong>Romero S</strong>, Santra B, Zope RR, Peralta JE, Jackson KA, Perdew JP</div>
+          <div class="pub-venue">The Journal of Chemical Physics, 152, 214109 (2020)</div>
+          <div class="pub-doi"><a href="https://doi.org/10.1063/5.0010375" target="_blank">DOI: 10.1063/5.0010375</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-year">2020</span>
+        <div class="pub-body">
+          <div class="pub-title">Improvements in the orbitalwise scaling down of Perdew–Zunger self-interaction correction in many-electron regions</div>
+          <div class="pub-authors">Yamamoto Y, <strong>Romero S</strong>, Baruah T, Zope RR</div>
+          <div class="pub-venue">The Journal of Chemical Physics, 152, 174112 (2020)</div>
+          <div class="pub-doi"><a href="https://doi.org/10.1063/5.0004738" target="_blank">DOI: 10.1063/5.0004738</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-year">2020</span>
+        <div class="pub-body">
+          <div class="pub-title">A GEANT4 Study of a Gamma-ray Collimation Array</div>
+          <div class="pub-authors">Lopez JA, <strong>Romero SS</strong>, Hernandez Rodriguez O, Holmes J, Alarcon R</div>
+          <div class="pub-venue">Journal of Nuclear Physics, Material Sciences, Radiation and Applications, 7(2), 217–221</div>
+          <div class="pub-doi"><a href="https://doi.org/10.15415/jnp.2020.72028" target="_blank">DOI: 10.15415/jnp.2020.72028</a></div>
+        </div>
+      </li>
+
+    </ul>
+
+    <div class="pub-section-head">Selected Preprints</div>
+    <ul class="pub-list">
+
+      <li class="pub-item">
+        <span class="pub-year">2025</span>
+        <div class="pub-body">
+          <div class="pub-title">Quantum Generative Modeling of Single-Cell Transcriptomics: Capturing Gene-Gene and Cell-Cell Interactions</div>
+          <div class="pub-authors"><strong>Romero S</strong>, Kumar VS, Chapkin RS, Cai JJ</div>
+          <div class="pub-venue">arXiv:2510.12776</div>
+          <div class="pub-doi"><a href="https://doi.org/10.48550/arXiv.2510.12776" target="_blank">arXiv:2510.12776</a></div>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-year">2024</span>
+        <div class="pub-body">
+          <div class="pub-title">Quantum Annealing for Enhanced Feature Selection in Single-Cell RNA Sequencing Data Analysis</div>
+          <div class="pub-authors"><strong>Romero S</strong>, Gupta S, Gatlin V, Chapkin RS, Cai JJ</div>
+          <div class="pub-venue">arXiv:2408.08867</div>
+          <div class="pub-doi"><a href="https://doi.org/10.48550/arXiv.2408.08867" target="_blank">arXiv:2408.08867</a></div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</section>
+
+<!-- ── Teaching ── -->
+<section id="teaching">
+  <div class="container">
+    <h2 class="section-title">Teaching</h2>
+    <p style="margin-bottom:1.6rem;">
+      My teaching philosophy centers on transforming complex, emerging concepts into accessible, mathematically
+      grounded building blocks. I foster a dynamic environment linking <strong>abstract theory to computational practice</strong>,
+      with a strong commitment to mentoring diverse students — particularly Hispanic and first-generation scholars —
+      aligning with the missions of institutions like UTEP and TAMU.
+    </p>
+
+    <h3 style="font-family:sans-serif; font-size:0.95rem; color:var(--navy); margin-bottom:1rem;">Prepared Course Offerings</h3>
+    <div class="teaching-grid">
+      <div class="course-group">
+        <h3>Graduate Level</h3>
+        <ul>
+          <li>Introduction to Quantum Algorithms and Programming (Qiskit)</li>
+          <li>Advanced Topics in Machine Learning</li>
+          <li>Computational Methods in Quantum Systems</li>
+          <li>Advanced Topics in Optimization</li>
+          <li>Theory of Computation</li>
+          <li>Quantum-Classical Architectures and Interface Design</li>
+        </ul>
+      </div>
+      <div class="course-group">
+        <h3>Undergraduate Level</h3>
+        <ul>
+          <li>Numerical Analysis</li>
+          <li>Computational Science</li>
+          <li>Mathematical Modeling of Physical Systems</li>
+          <li>Algorithms and HPC Programming (C++, Fortran, MPI, OpenMP)</li>
+          <li>Mathematical Methods in Data Science</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-family:sans-serif; font-size:0.95rem; color:var(--navy); margin:1.6rem 0 1rem;">Teaching Experience</h3>
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-date">2025 (Fall)</div>
+        <div class="tl-title">Aggie Research Corps Team Leader</div>
+        <div class="tl-sub">Texas A&M University</div>
+        <div class="tl-desc">Project: "Machine Learning &amp; Quantum Approaches to Deciphering Gene Signatures"</div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-date">2021 – 2023</div>
+        <div class="tl-title">Teaching Assistant — Differential Equations</div>
+        <div class="tl-sub">The University of Texas at El Paso (UTEP)</div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-date">2018 – 2019</div>
+        <div class="tl-title">Teaching Assistant — MARCS Tutoring Program</div>
+        <div class="tl-sub">UTEP</div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-date">2016 – 2018</div>
+        <div class="tl-title">Teaching Assistant — Basic Physics Workshop</div>
+        <div class="tl-sub">UTEP</div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-date">2015 – 2016</div>
+        <div class="tl-title">Lecturer</div>
+        <div class="tl-sub">Universidad Autónoma de Ciudad Juárez</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CV ── -->
+<section id="cv">
+  <div class="container" style="text-align:center;">
+    <h2 class="section-title" style="text-align:left;">Curriculum Vitae</h2>
+    <p style="margin-bottom:1.8rem; color:var(--muted);">
+      Download my full CV for a complete list of publications, presentations, certifications, and skills.
+    </p>
+    <a class="cv-cta" href="SelimRomeroCV.pdf" download>
+      ⬇ Download CV (PDF)
+    </a>
+    <br><br>
+    <p style="font-size:0.85rem; color:var(--muted);">
+      Web of Science ResearcherID: <a href="https://www.webofscience.com/wos/author/rid/JKI-8025-2023" target="_blank">JKI-8025-2023</a>
+      &nbsp;·&nbsp;
+      ORCID: <a href="https://orcid.org/0000-0002-2401-6272" target="_blank">0000-0002-2401-6272</a>
+    </p>
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="icon">✉</div>
+        <div class="lbl">Email</div>
+        <div class="val"><a href="mailto:ssromerogon@tamu.edu">ssromerogon@tamu.edu</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="icon">🏛</div>
+        <div class="lbl">Office</div>
+        <div class="val" style="font-size:0.82rem; color:var(--muted);">Veterinary Research Building 366<br>588 Raymond Stotzer Pkwy<br>College Station, TX 77845</div>
+      </div>
+      <div class="contact-card">
+        <div class="icon">🔗</div>
+        <div class="lbl">ORCID</div>
+        <div class="val"><a href="https://orcid.org/0000-0002-2401-6272" target="_blank">0000-0002-2401-6272</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="icon">📊</div>
+        <div class="lbl">Web of Science</div>
+        <div class="val"><a href="https://www.webofscience.com/wos/author/rid/JKI-8025-2023" target="_blank">JKI-8025-2023</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <p>© 2026 Selim Sabag Romero Gonzalez · Texas A&M University</p>
+  <p style="margin-top:0.4rem;">
+    <a href="https://orcid.org/0000-0002-2401-6272" target="_blank">ORCID</a> ·
+    <a href="https://www.webofscience.com/wos/author/rid/JKI-8025-2023" target="_blank">Web of Science</a>
+  </p>
+</footer>
+
+</body>
+</html>
